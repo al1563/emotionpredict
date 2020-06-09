@@ -3,6 +3,7 @@ from flask import Flask, request, jsonify, render_template
 import pickle
 from PIL import Image
 from tensorflow.keras.models import load_model
+import tensorflow.keras as keras
 import sys
 import os
 import glob
@@ -13,6 +14,7 @@ from gevent.pywsgi import WSGIServer
 app = Flask(__name__, template_folder='templates')
 
 def model_predict(img_path):
+
 	model = load_model('model/initialmodelthree.h5') 
 	model._make_predict_function()          # Necessary 
 	print('Model loaded. Check http://127.0.0.1:5000/')
@@ -26,6 +28,7 @@ def model_predict(img_path):
 	im_input = im.reshape((1, IMG_WIDTH, IMG_HEIGHT, IMG_CHANNEL))
 
 	preds = model.predict(im_input)[0]
+	keras.backend.clear_session()
 
 	return preds
 
