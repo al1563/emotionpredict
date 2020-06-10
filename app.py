@@ -15,14 +15,14 @@ app = Flask(__name__, template_folder='templates')
 
 def model_predict(img_path):
 
-	model = load_model('model/initialmodelthree.h5') 
+	model = load_model('model/model2.h5') 
 	model._make_predict_function()          # Necessary 
 	print('Model loaded. Check http://127.0.0.1:5000/')
 
-	IMG_HEIGHT, IMG_WIDTH, IMG_CHANNEL = 350, 350, 3
+	IMG_HEIGHT, IMG_WIDTH, IMG_CHANNEL = 350, 350, 1
 	img = Image.open(img_path)
 	img = img.resize((IMG_WIDTH, IMG_HEIGHT))
-	img = img.convert('L').convert('RGB')
+	img = img.convert('L')
 	im = np.asarray(img)
 	im = im/255
 	im_input = im.reshape((1, IMG_WIDTH, IMG_HEIGHT, IMG_CHANNEL))
