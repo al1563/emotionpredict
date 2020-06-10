@@ -56,6 +56,7 @@ def bmi_predict(img_path):
 	
 	predictions = model.predict(input_img.reshape(1, 224, 224, 3))
 	label = str(predictions[0]-predictions/5)
+	keras.backend.clear_session()
 	return label
 
 @app.route('/', methods=['GET'])
