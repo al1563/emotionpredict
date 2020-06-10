@@ -8,7 +8,7 @@ def get_age_model():
 
     age_model = ResNet50(
         include_top=False,
-        weights='imagenet',
+        weights=None,
         input_shape=(config.RESNET50_DEFAULT_IMG_WIDTH, config.RESNET50_DEFAULT_IMG_WIDTH, 3),
         pooling='avg'
     )
@@ -23,12 +23,9 @@ def get_age_model():
     return age_model
 
 
-def get_model(ignore_age_weights=False):
+def get_model():
 
     base_model = get_age_model()
-    if not ignore_age_weights:
-        base_model.load_weights(config.AGE_TRAINED_WEIGHTS_FILE)
-        print('Loaded weights from age classifier')
     last_hidden_layer = base_model.get_layer(index=-2)
 
     base_model = Model(

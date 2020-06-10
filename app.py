@@ -36,7 +36,7 @@ def model_predict(img_path):
 
 def bmi_predict(img_path):
 	weights_file = 'model/bmi_model_weights.h5'
-	model = get_model(ignore_age_weights=True)
+	model = get_model()
 	model.load_weights(weights_file)
 
 	img = cv2.imread(img_path)
