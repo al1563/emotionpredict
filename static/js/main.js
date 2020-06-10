@@ -3,6 +3,7 @@ $(document).ready(function () {
     $('.image-section').hide();
     $('.loader').hide();
     $('#result').hide();
+    $('#result2').hide();
 
     // Upload Preview
     function readURL(input) {
@@ -21,6 +22,7 @@ $(document).ready(function () {
         $('#btn-predict').show();
         $('#result').text('');
         $('#result').hide();
+        $('#result2').hide();
         readURL(this);
     });
 
@@ -43,9 +45,12 @@ $(document).ready(function () {
             async: true,
             success: function (data) {
                 // Get and display the result
+                var split = data.split('.')
                 $('.loader').hide();
                 $('#result').fadeIn(600);
-                $('#result').text(' Result:  ' + data);
+                $('#result').text(' Emotion Result:  ' + split[0] + '.');
+                $('#result2').fadeIn(600);
+                $('#result2').text('Predicted BMI:  ' + split[1] + '.');
                 console.log('Success!');
             },
         });

@@ -11,6 +11,9 @@ import re
 from werkzeug.utils import secure_filename
 from gevent.pywsgi import WSGIServer
 
+import cv2
+from model import get_model
+
 app = Flask(__name__, template_folder='templates')
 
 def model_predict(img_path):
@@ -31,6 +34,29 @@ def model_predict(img_path):
 	keras.backend.clear_session()
 
 	return preds
+
+def bmi_predict(img_path):
+	weights_file = 'model/bmi_model_weights.h5'
+	model = get_model(ignore_age_weights=True)
+	model.load_weights(weights_file)
+
+	img = cv2.imread(img_path)
+	if img.shape[0]>img.shape[1]:
+		halfminlength = int(img.shape[1]/2)
+		mid = int(img.shape[0]/2)
+		input_img = img[mid-halfminlength:mid+halfminlength,:,:]
+	elif img.shape[1]>img.shape[0]:
+		halfminlength = int(img.shape[0]/2)
+		mid = int(img.shape[1]/2)
+		input_img = img[:,mid-halfminlength:mid+halfminlength,:]
+	else:
+		input_img = img
+	input_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+	input_img = cv2.resize(img, (224, 224))/255.
+	
+	predictions = model.predict(input_img.reshape(1, 224, 224, 3))
+	label = str(predictions[0]-predictions/5)
+	return label
 
 @app.route('/', methods=['GET'])
 def index():
@@ -56,8 +82,12 @@ def upload():
 		# Process your result for human
 		# pred_class = preds.argmax(axis=-1)
 		pred_class = list(facevalue.keys())[preds.argmax()]        
-		result = 'This person is showing ' + str(pred_class) + ' emotion.'              
-		return result
+
+		bmi = bmi_predict(file_path)[2:]
+
+		result = 'This person is showing ' + str(pred_class) + ' emotion.'      
+		result2 = 'The predicted BMI is ' + str(bmi)       
+		return result + result2
 	return None
 
 if __name__ == '__main__':
