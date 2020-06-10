@@ -19,15 +19,17 @@ $(document).ready(function () {
     }
     $("#imageUpload").change(function () {
         $('.image-section').show();
-        $('#btn-predict').show();
+        $('#btn-predict1').show();
+        $('#btn-predict2').show();
         $('#result').text('');
         $('#result').hide();
+        $('#result2').text('');
         $('#result2').hide();
         readURL(this);
     });
 
-    // Predict
-    $('#btn-predict').click(function () {
+    // Predict Emotion
+    $('#btn-predict1').click(function () {
         var form_data = new FormData($('#upload-file')[0]);
 
         // Show loading animation
@@ -37,7 +39,7 @@ $(document).ready(function () {
         // Make prediction by calling api /predict
         $.ajax({
             type: 'POST',
-            url: '/predict',
+            url: '/predictemotion',
             data: form_data,
             contentType: false,
             cache: false,
@@ -45,12 +47,36 @@ $(document).ready(function () {
             async: true,
             success: function (data) {
                 // Get and display the result
-                var split = data.split('.')
                 $('.loader').hide();
                 $('#result').fadeIn(600);
-                $('#result').text(' Emotion Result:  ' + split[0] + '.');
+                $('#result').text(' Emotion Result:  ' + data);
+                console.log('Success!');
+            },
+        });
+    });
+
+    // predict BMI
+    $('#btn-predict2').click(function () {
+        var form_data = new FormData($('#upload-file')[0]);
+
+        // Show loading animation
+        $(this).hide();
+        $('.loader').show();
+
+        // Make prediction by calling api /predict
+        $.ajax({
+            type: 'POST',
+            url: '/predictBMI',
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+            async: true,
+            success: function (data) {
+                // Get and display the result
+                $('.loader').hide();
                 $('#result2').fadeIn(600);
-                $('#result2').text('Predicted BMI:  ' + split[1] + '.');
+                $('#result2').text('Predicted BMI:  ' + data + '.');
                 console.log('Success!');
             },
         });

@@ -17,7 +17,6 @@ from model import get_model
 app = Flask(__name__, template_folder='templates')
 
 def model_predict(img_path):
-
 	model = load_model('model/model2.h5') 
 	model._make_predict_function()          # Necessary 
 	print('Model loaded. Check http://127.0.0.1:5000/')
@@ -55,7 +54,7 @@ def bmi_predict(img_path):
 	input_img = cv2.resize(img, (224, 224))/255.
 	
 	predictions = model.predict(input_img.reshape(1, 224, 224, 3))
-	label = str(predictions[0]-predictions/5)
+	label = str(predictions[0]-predictions[0]/5)
 	keras.backend.clear_session()
 	return label
 
@@ -64,7 +63,7 @@ def index():
 	# Main page
 	return render_template('index.html')
 	
-@app.route('/predict', methods=['GET', 'POST'])
+@app.route('/predictemotion', methods=['GET', 'POST'])
 def upload():
 	if request.method == 'POST':
 		# Get the file from post request
@@ -84,11 +83,26 @@ def upload():
 		# pred_class = preds.argmax(axis=-1)
 		pred_class = list(facevalue.keys())[preds.argmax()]        
 
-		bmi = bmi_predict(file_path)[2:]
-
 		result = 'This person is showing ' + str(pred_class) + ' emotion.'      
-		result2 = 'The predicted BMI is ' + str(bmi)       
-		return result + result2
+		return result
+	return None
+
+@app.route('/predictBMI', methods=['GET', 'POST'])
+def predict2():
+	if request.method == 'POST':
+		# Get the file from post request
+		f = request.files['file']
+
+		# Save the file to ./uploads
+		basepath = os.path.dirname(__file__)
+		file_path = os.path.join(
+			basepath, 'uploads', secure_filename(f.filename))
+		f.save(file_path)
+
+		bmi = bmi_predict(file_path)[1:5]
+
+		result2 = 'The predicted BMI is ' + bmi       
+		return result2
 	return None
 
 if __name__ == '__main__':
