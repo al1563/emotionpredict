@@ -82,6 +82,7 @@ def upload():
 		# Process your result for human
 		# pred_class = preds.argmax(axis=-1)
 		pred_class = list(facevalue.keys())[preds.argmax()]        
+		os.remove(file_path)
 
 		result = 'This person is showing ' + str(pred_class) + ' emotion.'      
 		return result
@@ -100,6 +101,7 @@ def predict2():
 		f.save(file_path)
 
 		bmi = bmi_predict(file_path)[1:5]
+		os.remove(file_path)
 
 		result2 = 'The predicted BMI is ' + bmi       
 		return result2
