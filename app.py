@@ -61,7 +61,7 @@ def bmi_predict(img_path):
 def cvrisk_predict(bmi):
 	bmi = float(bmi[1:-1])
 	if bmi<18.5:
-		return '''<font size="4">Underweight: Cardiovascular Event Risk % Compared to Normal BMI Risk in Persons >60 Years of Age:</font>`
+		return '''<font size="4">Underweight: Cardiovascular Event Risk % Compared to Normal BMI Risk in Persons >60 Years of Age:</font> `
 			<table style="width:50%;font-size:60%"> <tr> <th>CV Event</th> <th> Men </th> <th> Woman </th> </tr>
 			<tr> <th>Heart Attack</th> <th><span style="font-weight:normal"> 51% </span> </th> <th><span style="font-weight:normal"> 133% </span></th> </tr>
 			<tr> <th>Stroke</th> <th><span style="font-weight:normal"> 85% </span></th> <th><span style="font-weight:normal"> 101% </span></th> </tr>
@@ -70,21 +70,21 @@ def cvrisk_predict(bmi):
 	elif bmi<=25 and bmi>=18.5:
 		return 'Normal BMI detected.'
 	elif bmi>25 and bmi<=30:
-		return '''<font size="4">Overweight: Cardiovascular Risks Compared to Normal BMI in Persons >60 Years of Age:</font>`
+		return '''<font size="4">Overweight: Cardiovascular Risks Compared to Normal BMI in Persons >60 Years of Age:</font> `
 			<table style="width:50%;font-size:60%"> <tr> <th>CV Event</th> <th> Men </th> <th> Woman </th> </tr>
 			<tr> <th>Heart Attack</th> <th><span style="font-weight:normal"> 115% </span> </th> <th><span style="font-weight:normal"> 20% </span></th> </tr>
 			<tr> <th>Stroke</th> <th><span style="font-weight:normal"> 118% </span></th> <th><span style="font-weight:normal"> 111% </span></th> </tr>
 			<tr> <th>Heart Failure</th> <th><span style="font-weight:normal"> 125% </span></th> <th><span style="font-weight:normal"> 122% </span> </th> </tr> 
 			</table>'''
 	elif bmi>30 and bmi<=40:
-		return '''<font size="4">Overweight +1: Cardiovascular Risks Compared to Normal BMI in Persons >60 Years of Age: </font>`
+		return '''<font size="4">Overweight +1: Cardiovascular Risks Compared to Normal BMI in Persons >60 Years of Age: </font> `
 			<table style="width:50%;font-size:60%"> <tr> <th>CV Event</th> <th> Men </th> <th> Woman </th> </tr>
 			<tr> <th>Heart Attack</th> <th><span style="font-weight:normal"> 126% </span> </th> <th><span style="font-weight:normal"> 140% </span></th> </tr>
 			<tr> <th>Stroke</th> <th><span style="font-weight:normal"> 102% </span></th> <th><span style="font-weight:normal"> 116% </span></th> </tr>
 			<tr> <th>Heart Failure</th> <th><span style="font-weight:normal"> 179% </span></th> <th><span style="font-weight:normal"> 213% </span> </th> </tr> 
 			</table>'''
 	else:
-		return '''<font size="4">Overweight +2: Cardiovascular Risks Compared to Normal BMI in Persons >60 Years of Age: </font>`
+		return '''<font size="4">Overweight +2: Cardiovascular Risks Compared to Normal BMI in Persons >60 Years of Age: </font> `
 			<table style="width:50%;font-size:60%"> <tr> <th>CV Event</th> <th> Men </th> <th> Woman </th> </tr>
 			<tr> <th>Heart Attack</th> <th><span style="font-weight:normal"> 152% </span> </th> <th><span style="font-weight:normal"> 155% </span></th> </tr>
 			<tr> <th>Stroke</th> <th><span style="font-weight:normal"> 49% </span></th> <th><span style="font-weight:normal"> 104% </span></th> </tr>
