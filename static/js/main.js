@@ -73,10 +73,10 @@ $(document).ready(function () {
             processData: false,
             async: true,
             success: function (data) {
-                // Get and display the result
                 $('.loader').hide();
                 $('#result2').fadeIn(600);
-                $('#result2').text('Predicted BMI:  ' + data + '.');
+                $('#result2').html('<h3> Predicted BMI:  ' + data.split("`").join(" <br> "));
+                console.log(data.split("`").join("\n"))
                 console.log('Success!');
             },
         });
