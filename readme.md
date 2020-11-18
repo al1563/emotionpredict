@@ -8,7 +8,8 @@ First clone this repo.
 
 If using anaconda to manage environments, run
 `conda create -n emotionpredict python=3.6.10`
-
+\
+`conda activate emotionpredict`\
 Note: older python version is important here
 
 Then
