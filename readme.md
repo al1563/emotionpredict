@@ -12,7 +12,7 @@ If using anaconda to manage environments, run
 Note: older python version is important here
 
 Then
-`conda install pip`
+`conda install pip` \
 `pip install -r requirements.txt`
 
 When all dependencies are installed, run
